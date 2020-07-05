@@ -24,6 +24,8 @@ findLargestNum(numString);
   }
 }*/
 
+//SOLUCIÓN CON FUNCIÓN COMPLEMENTARIA
+
 let obj = {};
 
 const getLetterCount = (palabra, letra, caseSensitive) => {
@@ -55,6 +57,35 @@ const findOcurrencies = (frase, letras, caseSensitive) => {
       });
     });
     console.log(obj);
+}
+
+findOcurrencies("Hello world", ["h","l"], true);
+
+//SOLUCIÓN CON REDUCE
+let obj = {};
+
+const findOcurrencies = (frase, letras, caseSensitive) => {
+  let arrayPalabras = frase.split(' ');
+  arrayPalabras.forEach(palabra => {
+    obj[palabra] = {};
+    letras.forEach(letra => {
+      arrayPalabraPorLetra = palabra.split("");
+      obj[palabra][letra] = arrayPalabraPorLetra.reduce((acumulador, letras) => {
+        if (caseSensitive) {
+          if (letras == letra) {
+            acumulador++
+          }
+        }
+        else {
+          if (letras.toLowerCase() == letra) {
+            acumulador++
+          }
+        }
+        return acumulador;
+      }, 0)
+    });
+  });
+  console.log(obj);
 }
 
 findOcurrencies("Hello world", ["h","l"], true);
